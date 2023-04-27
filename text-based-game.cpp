@@ -288,11 +288,18 @@ public:
     }
     void play() {
         string playerName;
-        cout << "Enter your name: ";
+		cout << "Step into the enchanting realm of \"Labyrinth\" where mystery awaits.\n"; 
+        cout << "You are Siguard, a brave warrior seeking the legendary artifact, Gungnir.\n"; 
+        cout << "Inspired by the nine realms of Norse mythology, this text-based adventure game will test your wits and courage.\n\n"; 
+        cout << "Explore each room, solve puzzles, and uncover treasures as you journey through the maze.\n"; 
+        cout << "Only the wisest and most determined adventurers can find Gungnir.\n"; 
+        cout << "Are you ready to embark on this epic quest, Siguard?\n"; 
+        cout << "If so, type your name: ";
         cin >> playerName;
         player.set_name(playerName);
         player.currentRoom = &rooms[0];
 		    // Display game title and border
+			cout << "\nWelcome, " << playerName << "! Let the adventure begin!\n";
 		    cout << "#########################################\n";
 		    cout << "#                                       #\n";
 		    cout << "#         Text Based Game               #\n";
