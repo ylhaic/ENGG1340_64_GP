@@ -86,10 +86,19 @@ int getch_int() {
 bool playgame1() {
   vector<string> puzzle;
   generatePuzzle(puzzle);
-
+  
+  cout << "Welcome to the sliding puzzle game!\n";
+  cout << "Objective: Arrange the numbers in ascending order, from 1 to 8, with the blank space at the end.\n";
+  cout << "The puzzle consists of a 3x3 grid containing eight numbered tiles and one blank space.\n";
+  cout << "You can slide the numbered tiles into the blank space to rearrange them.\n\n";
   cout << "Generated puzzle:\n";
   displayPuzzle(puzzle);
-  cout << "Use W (up), A (left), S (down), and D (right) to move the blank tile.\n";
+  cout << "Controls:\n";
+  cout << " - W (up): Move the blank space up\n";
+  cout << " - A (left): Move the blank space left\n";
+  cout << " - S (down): Move the blank space down\n";
+  cout << " - D (right): Move the blank space right\n";
+  cout << " - Q: Quit the game (This will reduce your health points by 40)\n\n";
 
   while (!checkPuzzle(puzzle)) {
     int input = getch_int();
@@ -105,6 +114,7 @@ bool playgame1() {
     } else if (input == 'a' || input == 'A') {
       dx = 1;
     } else if (input == 'q' || input == 'Q') {
+      cout << "You have quit the game. Your health points will be reduced by 40.\n";
       return false;
     } else {
       continue;
