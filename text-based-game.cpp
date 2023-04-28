@@ -15,7 +15,6 @@
 #define LOSS_MSG "You didn't collect all the required items. Game over!\n"
 #define DEAD_MSG "You lose all healthpoint, you dead!\n"
 
-
 using namespace std;
 class Room {
 public:
@@ -42,16 +41,16 @@ public:
     string guide(){
 		string g;
 		if(pNorthRoom){
-			g += "there is a room to your north,";
+			g += "There is a room to your north.";
 		}
 		if(pSouthRoom){
-			g += "there is a room to your south,";
+			g += "There is a room to your south.";
 		}
 		if(pWestRoom){
-			g += "there is a room to your west,";
+			g += "There is a room to your west.";
 		}
 		if(pEastRoom){
-			g += "there is a room to your east";
+			g += "There is a room to your east.";
 		}
 		return g;
 	}
@@ -88,45 +87,59 @@ public:
 		}
 	}
     // ... Methods for interacting with monsters, picking up items, etc.
-    void play(){
+    int play(){
+		int ret = 0; //0 faile 1 win 2 have won 3 no game play
 		if(!currentRoom->win){
 			if(!currentRoom->hasGame){
-				return;
+				cout<<"invalid command\n";
+				return 3;
 			}
 			if(currentRoom->play_game()){
 				currentRoom->win = true;
-				cout<<"you win\n";
+				cout<<"You win\n";
 				if(currentRoom->hasItem){
 					bag.push_back(currentRoom->item);
 					currentRoom->hasItem = false;
-					cout<<"you get "<<currentRoom->item<<endl;
+					cout<<"You get "<<currentRoom->item<<endl;
 				}
 				currentRoom->passable = true;
+				ret = 1;
 			}else{
 				healthPoints -= currentRoom->healthLoss;
-				cout<<"you loss\n";
+				cout<<"You loss\n";
+				ret = 0;
 				is_dead();
 			}
+		}else{
+			cout<<"You have played this game\n";
+			ret = 2;
 		}
+		return ret;
 	}
 	int pick(){
 		if(currentRoom->hasTreasure){
 			cash += currentRoom->treasure;
 			currentRoom->hasTreasure = false;
+			cout<<"pick successfully\n";
+		}else{
+			cout<<"invalid command\n";
 		}
 		return cash;
 	}
-	void move(char arg0){
+	int move(char arg0){
+		int ret = 0;//return 0 move fail  no way return 1 move success  return 2 move fail game no win
 		switch(arg0){
 			case 'n':
 			case 'N':
 			if(currentRoom->pNorthRoom){
 				if(currentRoom->passable || currentRoom->pNorthRoom->passable){
-					
+					ret = 1;
 					currentRoom = currentRoom->pNorthRoom;
 					if(!currentRoom->hasGame){
 						currentRoom->passable = true;
 					}
+				}else if(!currentRoom->passable && !currentRoom->pNorthRoom->passable){
+					ret = 2;
 				}
 			}
 			break;
@@ -135,11 +148,13 @@ public:
 			case 'S':
 			if(currentRoom->pSouthRoom){
 				if(currentRoom->passable || currentRoom->pSouthRoom->passable){
-					
+					ret = 1;
 					currentRoom = currentRoom->pSouthRoom;
 					if(!currentRoom->hasGame){
 						currentRoom->passable = true;
 					}
+				}else if(!currentRoom->passable && !currentRoom->pSouthRoom->passable){
+					ret = 2;
 				}
 			}
 			break;
@@ -148,11 +163,13 @@ public:
 			case 'W':
 			if(currentRoom->pWestRoom){
 				if(currentRoom->passable || currentRoom->pWestRoom->passable){
-					
+					ret = 1;
 					currentRoom = currentRoom->pWestRoom;
 					if(!currentRoom->hasGame){
 						currentRoom->passable = true;
 					}
+				}else if(!currentRoom->passable && !currentRoom->pWestRoom->passable){
+					ret = 2;
 				}
 			}
 			break;
@@ -161,15 +178,18 @@ public:
 			case 'E':
 			if(currentRoom->pEastRoom){
 				if(currentRoom->passable || currentRoom->pEastRoom->passable){
-					
+					ret = 1;
 					currentRoom = currentRoom->pEastRoom;
 					if(!currentRoom->hasGame){
 						currentRoom->passable = true;
 					}
+				}else if(!currentRoom->passable && !currentRoom->pEastRoom->passable){
+					ret = 2;
 				}
 			}
 			break;
 		}
+		return ret;
 	}
 
     string name;
@@ -233,7 +253,7 @@ public:
     }
     void init_rooms() {
         rooms[0].id = 1;
-        rooms[0].description = "";
+        rooms[0].description = "rooms 1 description\n";
         rooms[0].passable = true;
 
         rooms[1].id = 2;
@@ -305,24 +325,63 @@ public:
         // ... Main game loop ...
 			string interact;
 		while(true){
+			
+		    std::cout << "What do you want to do: ";
 			interact.clear();
 			cin>>interact;
+			cout<<endl;
 			if(interact.find("north") != string::npos){
-				player.move('n');
+				int ret = player.move('n');
+				if(ret == 1){
+					displayCurrentRoomInfo();
+				}else if(ret == 2){
+					cout<<"You cannot explore new room unless you try the game\n";
+				}else if(ret ==0){
+					cout<<"can not pass\n";
+				}
 			}else if(interact.find("south") != string::npos){
 				if(player.currentRoom->pSouthRoom == &rooms[8]){
 					if(rooms[5].win){
 						player.move('s');
 					}
 				}else{
-						player.move('s');
+					int ret = player.move('s');
+					if(ret == 1){
+						displayCurrentRoomInfo();
+					}else if(ret == 2){
+						cout<<"You cannot explore new room unless you try the game\n";
+					}else if(ret ==0){
+						cout<<"can not pass\n";
+					}
 				}
 			}else if(interact.find("west") != string::npos){
-				player.move('w');
+				int ret = player.move('w');
+				if(ret == 1){
+					displayCurrentRoomInfo();
+				}else if(ret == 2){
+					cout<<"You cannot explore new room unless you try the game\n";
+				}else if(ret ==0){
+					cout<<"can not pass\n";
+				}
 			}else if(interact.find("east") != string::npos){
-				player.move('e');
+				int ret = player.move('e');
+				if(ret == 1){
+					displayCurrentRoomInfo();
+				}else if(ret == 2){
+					cout<<"You cannot explore new room unless you try the game\n";
+				}else if(ret ==0){
+					cout<<"can not pass\n";
+				}
 			}else if(interact.find("play") != string::npos){
-				player.play();
+				int ret = player.play();
+				if(ret == 0){
+					cout << "\nyour bag contains the following items:";
+					for(int i=0; i< player.bag.size(); i++){
+						cout<<player.bag.at(i)<<" ";
+					}
+
+					std::cout << "\nCurrent Cash is: " << player.cash <<"\nCurrent health is:"<<player.healthPoints<< std::endl;
+				}
 			}else if(interact.find("pick") != string::npos){
 				player.pick();
 			}else if(interact.find("attack") != string::npos){
@@ -341,11 +400,13 @@ public:
 							cout<<"you win\n";
 					}else{
 						cout<<"you losss\n";
+						exit(0);
 					}
 							
 				}
 			}else{
-				puts("error input");
+				cout<<"invalid command\n";
+				continue;
 			}
 			if(player.currentRoom == &rooms[8]){
 				if(checkWinCondition()){
@@ -355,7 +416,6 @@ public:
 				}
 				break;
 			}
-			displayCurrentRoomInfo();
 		}
     }
 
@@ -372,7 +432,9 @@ public:
 
     void displayCurrentRoomInfo() {
 
-            cout << "Currently you are in Room " << player.currentRoom->get_id() << ". " << player.currentRoom->descript() << endl;
+
+		    cout << "Currently you are in Room " << player.currentRoom->get_id() << ". " << player.currentRoom->descript() << endl;
+            
 			if (player.currentRoom->get_id() == 1) {
 				print_and_get_room1_description();
             } else {
@@ -389,8 +451,7 @@ public:
 				cout<<player.bag.at(i)<<" ";
 			}
 
-		    cout << "\nCurrent Cash is: " << player.cash <<"\nCurrent health is:"<<player.healthPoints<< std::endl;
-		    cout << "What do you want to do: ";
+		    std::cout << "\nCurrent Cash is: " << player.cash <<"\nCurrent health is:"<<player.healthPoints<< std::endl;
     }
     
 private:
