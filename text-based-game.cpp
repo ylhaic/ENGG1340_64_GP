@@ -5,10 +5,12 @@
 #include <sstream>
 #include <memory>
 #include <string>
+#include "introduction.h"
 #include "game1.h"
 #include "game2.h"
 #include "game4.h"
 #include "game5.h"
+#include "room1.h"
 #define WIN_MSG "Congratulations! You've collected all the required items and won the game!\n"
 #define LOSS_MSG "You didn't collect all the required items. Game over!\n"
 #define DEAD_MSG "You lose all healthpoint, you dead!\n"
@@ -231,7 +233,7 @@ public:
     }
     void init_rooms() {
         rooms[0].id = 1;
-        rooms[0].description = "rooms 1 description\n";
+        rooms[0].description = "";
         rooms[0].passable = true;
 
         rooms[1].id = 2;
@@ -288,23 +290,17 @@ public:
     }
     void play() {
         string playerName;
-		cout << "Step into the enchanting realm of \"Labyrinth\" where mystery awaits.\n"; 
-        cout << "You are Siguard, a brave warrior seeking the legendary artifact, Gungnir.\n"; 
-        cout << "Inspired by the nine realms of Norse mythology, this text-based adventure game will test your wits and courage.\n\n"; 
-        cout << "Explore each room, solve puzzles, and uncover treasures as you journey through the maze.\n"; 
-        cout << "Only the wisest and most determined adventurers can find Gungnir.\n"; 
-        cout << "Are you ready to embark on this epic quest, Siguard?\n"; 
-        cout << "If so, type your name: ";
+		display_introduction(playerName);
         cin >> playerName;
         player.set_name(playerName);
         player.currentRoom = &rooms[0];
-		    // Display game title and border
-			cout << "\nWelcome, " << playerName << "! Let the adventure begin!\n";
-		    cout << "#########################################\n";
-		    cout << "#                                       #\n";
-		    cout << "#         Text Based Game               #\n";
-		    cout << "#                                       #\n";
-		    cout << "#########################################\n\n";
+
+		cout << "\nWelcome, " << playerName << "! Let the adventure begin!\n";
+		cout << "#########################################\n";
+		cout << "#                                       #\n";
+		cout << "#         Text Based Game               #\n";
+		cout << "#                                       #\n";
+		cout << "#########################################\n\n";
         displayCurrentRoomInfo();
         // ... Main game loop ...
 			string interact;
@@ -376,8 +372,12 @@ public:
 
     void displayCurrentRoomInfo() {
 
-
-		    cout << "Currently you are in Room " << player.currentRoom->get_id() << ". " << player.currentRoom->descript() << endl;
+            cout << "Currently you are in Room " << player.currentRoom->get_id() << ". " << player.currentRoom->descript() << endl;
+			if (player.currentRoom->get_id() == 1) {
+				print_and_get_room1_description();
+            } else {
+				cout << player.currentRoom->descript() << endl;
+            }
 
 		    if (player.currentRoom->hasItem) {
 		        cout << "The room contains the following items:";

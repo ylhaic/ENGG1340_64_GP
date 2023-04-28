@@ -1,7 +1,7 @@
 # Variables
 CXX = g++
 FLAGS = -pedantic-errors -std=c++11
-OBJ_FILES = text-based-game.o game1.o game2.o game4.o game5.o
+OBJ_FILES = text-based-game.o game1.o game2.o game4.o game5.o introduction.o room1.o
 TARGET = game
 
 # Default rule (all)
@@ -25,6 +25,12 @@ game4.o: game4.cpp
 	$(CXX) $(FLAGS) -c $< -o $@
 
 game5.o: game5.cpp
+	$(CXX) $(FLAGS) -c $< -o $@
+
+introduction.o: introduction.cpp introduction.h
+	$(CXX) $(FLAGS) -c $< -o $@
+
+room1.o: room1.cpp room1.h
 	$(CXX) $(FLAGS) -c $< -o $@
 
 # Rule for cleaning the project
