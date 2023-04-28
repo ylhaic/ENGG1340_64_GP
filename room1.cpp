@@ -1,13 +1,11 @@
 #include <iostream>
 #include <string>
-#include <thread>
-#include <chrono>
 #include <vector>
 #include "room1.h"
 
 using namespace std;
 
-void print_with_delay(const string &text, const chrono::milliseconds &delay, const string &color_code, const string &emphasis_color_code);
+void print_colored_text(const string &text, const string &color_code, const string &emphasis_color_code);
 
 std::string print_and_get_room1_description() {
     string room1_description = "You find yourself standing in your cozy home in the realm of Midgard. "
@@ -29,9 +27,6 @@ std::string print_and_get_room1_description() {
     // Define the color code for emphasis (red in this case)
     string emphasis_color_code = "\033[31m";
 
-    // Define the time delay for each character (in milliseconds)
-    chrono::milliseconds delay(50);
-
     // Split the description into paragraphs
     vector<string> paragraphs;
     size_t pos = 0;
@@ -41,16 +36,16 @@ std::string print_and_get_room1_description() {
     }
     paragraphs.push_back(room1_description);
 
-    // Print the paragraphs with delay, color, and emphasis
+    // Print the paragraphs with color and emphasis
     for (size_t i = 0; i < paragraphs.size(); ++i) {
-        print_with_delay(paragraphs[i], delay, color_codes[i % color_codes.size()], emphasis_color_code);
+        print_colored_text(paragraphs[i], color_codes[i % color_codes.size()], emphasis_color_code);
         cout << "\n\n";
     }
 
     return room1_description;
 }
 
-void print_with_delay(const string &text, const chrono::milliseconds &delay, const string &color_code, const string &emphasis_color_code) {
+void print_colored_text(const string &text, const string &color_code, const string &emphasis_color_code) {
     string color_reset = "\033[0m";
     string keyword = "legendary spear Gungnir";
     size_t keyword_len = keyword.length();
@@ -62,7 +57,5 @@ void print_with_delay(const string &text, const chrono::milliseconds &delay, con
         } else {
             cout << color_code << text[i] << color_reset;
         }
-        cout.flush();
-        this_thread::sleep_for(delay);
     }
 }
