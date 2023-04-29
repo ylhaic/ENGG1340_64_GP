@@ -26,7 +26,7 @@ std::string print_and_get_win_description() {
            "Congratulations on your incredible accomplishment and triumph in this epic adventure!\n\n";
 
     // Define the color code for all paragraphs (bright yellow in this case)
-    string color_code = "\033[93m";
+    string color_code = "\033[36m";
 
     // Print the description with the specified color and time delay
     print_color_text_win(win_description, color_code);

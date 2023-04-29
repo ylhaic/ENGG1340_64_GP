@@ -260,58 +260,58 @@ public:
     }
     void init_rooms() {
         rooms[0].id = 1;
-        rooms[0].description = "rooms 1 description\n";
+        rooms[0].description = "";
         rooms[0].passable = true;
 
         rooms[1].id = 2;
-        rooms[1].description = "rooms 2 description,pick treasure\n";
+        rooms[1].description = "";
         rooms[1].hasTreasure = true;
         rooms[1].treasure = 10;
 
         rooms[2].id = 3;
-        rooms[2].description = "rooms 3 description,play game\n";
+        rooms[2].description = "";
         rooms[2].hasItem = true;
-        rooms[2].item = "item3";
+        rooms[2].item = "Hammer";
         rooms[2].hasGame = true;
         rooms[2].play_game = playgame1;
         rooms[2].healthLoss = 40;
 
         rooms[3].id = 4;
-        rooms[3].description = "rooms 4 description,pick treasure\n";
+        rooms[3].description = "";
         rooms[3].treasure = 10;
         rooms[3].hasTreasure = true;
 
         rooms[4].id = 5;
-        rooms[4].description = "rooms 5 description,play game\n";
+        rooms[4].description = "";
         rooms[4].hasItem = true;
-        rooms[4].item = "item5";
+        rooms[4].item = "Cloak";
         rooms[4].hasGame = true;
         rooms[4].play_game = playgame2;
         rooms[4].healthLoss = 10;
 
         rooms[5].id = 6;
-        rooms[5].description = "rooms 6 description,attack\n";
+        rooms[5].description = "";
         rooms[5].hasItem = true;
-        rooms[5].item = "item6";
+        rooms[5].item = "Heart";
 
         rooms[6].id = 7;
-        rooms[6].description = "rooms 7 description,play game\n";
+        rooms[6].description = "";
         rooms[6].hasItem = true;
-        rooms[6].item = "item7";
+        rooms[6].item = "Touch";
         rooms[6].hasGame = true;
         rooms[6].play_game = playgame4;
         rooms[6].healthLoss = 20;
 
         rooms[7].id = 8;
-        rooms[7].description = "rooms 8 description,play game\n";
+        rooms[7].description = "";
         rooms[7].hasItem = true;
-        rooms[7].item = "item8";
+        rooms[7].item = "Ring";
         rooms[7].hasGame = true;
         rooms[7].play_game = playgame5;
         rooms[7].healthLoss = 30;
 
         rooms[8].id = 9;
-        rooms[8].description = "rooms 9 description\n";
+        rooms[8].description = "";
 
         connect_rooms();
     }
@@ -325,7 +325,7 @@ public:
 		cout << "\nWelcome, " << playerName << "! Let the adventure begin!\n";
 		cout << "#########################################\n";
 		cout << "#                                       #\n";
-		cout << "#         Text Based Game               #\n";
+		cout << "#               Labyrinth               #\n";
 		cout << "#                                       #\n";
 		cout << "#########################################\n\n";
         displayCurrentRoomInfo();
@@ -394,7 +394,7 @@ public:
 			}else if(interact.find("attack") != string::npos){
 				if(player.currentRoom == &rooms[5]){
 					for(vector<string>::iterator iter = player.bag.begin(); iter != player.bag.end(); iter++){
-						if(iter->find("item3") != string::npos || iter->find("item7") != string::npos){
+						if(iter->find("Hammer") != string::npos || iter->find("Touch") != string::npos){
 							rooms[5].win = true;
 							break;
 						}
@@ -430,7 +430,7 @@ public:
 		        int items = 0;
 				vector<string>::iterator iter = player.bag.begin();
 		        for (; iter != player.bag.end(); iter++) {
-		            if (iter->find("item") != string::npos) {
+		            if (iter->find("Hammer") != string::npos || iter->find("Cloak") != string::npos || iter->find("Heart") != string::npos || iter->find("Touch") != string::npos || iter->find("Ring") != string::npos) {
 		                items++;
 		            }
 		        }
