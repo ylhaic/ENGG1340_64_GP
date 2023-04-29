@@ -1,7 +1,7 @@
 # Variables
 CXX = g++
 FLAGS = -pedantic-errors -std=c++11
-OBJ_FILES = text-based-game.o game1.o game2.o game4.o game5.o introduction.o room1.o roo2.o room3.o room4.o room5.o room6.o room7.o room8.o win.o
+OBJ_FILES = text-based-game.o game1.o game2.o game4.o game5.o introduction.o room1.o room2.o room3.o room4.o room5.o room6.o room7.o room8.o win.o
 TARGET = game
 
 # Default rule (all)
