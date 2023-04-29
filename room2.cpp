@@ -22,13 +22,14 @@ void print_colored_text2(const string &text, const string &color_code, const str
 }
 
 std::string print_and_get_room2_description() {
-    string room2_description = "You find yourself standing at the entrance to the enchanting realm of Alfheim. "
+    string room2_description = "Alfheim (Alfheim) - Land of the Elves \n"
+           "You find yourself standing at the entrance to the enchanting realm of Alfheim. "
            "This mystical land, filled with lush forests, shimmering rivers, and golden light, radiates an aura of magic and beauty. "
            "The air is filled with the soft melodies of birdsong and the gentle rustle of leaves, "
            "inviting you to embark on your journey to find the hidden treasure, the Amulet of Alfr.\n\n"
            "As you venture deeper into the realm, you spot the Amulet of Alfr lying on a bed of radiant flowers. "
-           "Its beauty and power call out to you, and you feel the urge to claim it as your own. "
-           "To pick up the treasure, simply type 'pick'.\n";
+           "Its beauty and power call out to you, and you feel the urge to claim it as your own. \n"
+           "To pick up the treasure, simply type 'pick'.\n\n";
 
     // Define the color code for all paragraphs (magenta in this case)
     string color_code = "\033[35m";

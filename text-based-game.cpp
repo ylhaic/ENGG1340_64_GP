@@ -11,7 +11,14 @@
 #include "game4.h"
 #include "game5.h"
 #include "room1.h"
-#define WIN_MSG "Congratulations! You've collected all the required items and won the game!\n"
+#include "room2.h"
+#include "room3.h"
+#include "room4.h"
+#include "room5.h"
+#include "room6.h"
+#include "room7.h"
+#include "room8.h"
+#include "win.h"
 #define LOSS_MSG "You didn't collect all the required items. Game over!\n"
 #define DEAD_MSG "You lose all healthpoint, you dead!\n"
 
@@ -410,7 +417,7 @@ public:
 			}
 			if(player.currentRoom == &rooms[8]){
 				if(checkWinCondition()){
-					cout<<WIN_MSG;
+					print_and_get_win_description();
 				}else{
 					cout<<LOSS_MSG;
 				}
@@ -437,7 +444,37 @@ public:
             
 			if (player.currentRoom->get_id() == 1) {
 				print_and_get_room1_description();
-            } else {
+            } 
+			
+			else if (player.currentRoom->get_id() == 2) {
+				print_and_get_room2_description();
+			}
+
+			else if (player.currentRoom->get_id() == 3) {
+				print_and_get_room3_description();
+			}
+
+			else if (player.currentRoom->get_id() == 4) {
+				print_and_get_room4_description();
+			}
+
+			else if (player.currentRoom->get_id() == 5) {
+				print_and_get_room5_description();
+			}
+
+			else if (player.currentRoom->get_id() == 6) {
+				print_and_get_room6_description();
+			}
+
+			else if (player.currentRoom->get_id() == 7) {
+				print_and_get_room7_description();
+			}
+
+			else if (player.currentRoom->get_id() == 8) {
+				print_and_get_room8_description();
+			}
+
+			else {
 				cout << player.currentRoom->descript() << endl;
             }
 
