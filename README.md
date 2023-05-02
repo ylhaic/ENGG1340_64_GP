@@ -1,5 +1,5 @@
-1.Team Members;
-Cao Chen UID: 3036100507
+1.Team Members:
+Cao Chen UID:3036100507
 Hu Jiarui UID:3033108211 
 Xiao Donglu UID:3036100820 
 Xie Yadong UID:3036052231 
